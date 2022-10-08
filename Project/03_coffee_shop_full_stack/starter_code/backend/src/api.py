@@ -206,6 +206,14 @@ def unfound_request(error):
     response.status_code = 404
     return response
 
+@app.errorhandler(401)
+def unfound_request(error):
+    response = jsonify({
+        'message': error.description,
+        'success': False,
+    })
+    response.status_code = 401
+    return response
 
 @app.errorhandler(422)
 def unprocessable(error):
@@ -214,6 +222,15 @@ def unprocessable(error):
         'success': False,
     })
     response.status_code = 422
+    return response
+
+@app.errorhandler(403)
+def unfound_request(error):
+    response = jsonify({
+        'message': error.description,
+        'success': False,
+    })
+    response.status_code = 403
     return response
 
 

@@ -20,6 +20,7 @@ export class DrinkMenuPage implements OnInit {
 
   ngOnInit() {
     this.drinks.getDrinks();
+    console.log(this.drinks.items);
   }
 
   async openForm(activedrink: Drink = null) {

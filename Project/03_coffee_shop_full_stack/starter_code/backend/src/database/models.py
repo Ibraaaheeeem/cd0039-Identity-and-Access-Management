@@ -3,21 +3,23 @@ from sqlalchemy import Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-# database_filename = "database.db"
-project_dir = os.path.dirname(os.path.abspath(__file__))
-DB_USERNAME = os.getenv('DB_USER', 'postgres')
-DB_PASSWORD = os.getenv('DB_PASS', 'passdespostgres')
-DB_NAME = os.getenv('DB_NAME', 'mycoffeeshop')
-DB_HOST = os.getenv('DB_HOST', 'localhost:5432')
+# DB_USERNAME = os.getenv('DB_USER', 'postgres')
+# DB_PASSWORD = os.getenv('DB_PASS', 'passdespostgres')
+# DB_NAME = os.getenv('DB_NAME', 'mycoffeeshop')
+# DB_HOST = os.getenv('DB_HOST', 'localhost:5432')
 
-# database_path = "sqlite:///{}".
-# format(os.path.join(project_dir, database_filename))
-database_path = 'postgresql://{}:{}@{}/{}'.format(
-    DB_USERNAME,
-    DB_PASSWORD,
-    DB_HOST,
-    DB_NAME
+database_filename = "database.db"
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_path = "sqlite:///{}".format(os.path.join(
+    project_dir, database_filename)
 )
+
+# database_path = 'postgresql://{}:{}@{}/{}'.format(
+#     DB_USERNAME,
+#     DB_PASSWORD,
+#     DB_HOST,
+#     DB_NAME
+# )
 
 db = SQLAlchemy()
 
@@ -64,7 +66,8 @@ a persistent drink entity, extends the base SQLAlchemy Model
 
 class Drink(db.Model):
     # Autoincrementing, unique primary key
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    # id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer().with_variant(Integer, "sqlite"), primary_key=True)
     # String Title
     title = Column(String(80))
     # the ingredients blob - this stores a lazy json blob

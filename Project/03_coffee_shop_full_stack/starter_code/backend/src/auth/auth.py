@@ -84,7 +84,7 @@ def get_token_auth_header():
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-        abort(400)
+        abort(401, "No authorization data")
 
     if permission not in payload['permissions']:
         abort(403, "Permission denied")
@@ -162,7 +162,7 @@ def verify_decode_jwt(token):
     #     'code': 'invalid_header',
     #             'description': 'Unable to find the appropriate key.'
     # }, 400)
-    abort(403, "No permission data")
+    abort(403, "Permission denied")
 
     # raise Exception('Not Implemented')
 
